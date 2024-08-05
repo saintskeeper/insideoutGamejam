@@ -191,7 +191,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"hide",
-"speed": 10.0
+"speed": 2.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -265,8 +265,6 @@ scale = Vector2(0.988, 1)
 sprite_frames = SubResource("SpriteFrames_h6ed4")
 animation = &"hide"
 autoplay = "idle"
-frame = 12
-frame_progress = 1.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, 4)
