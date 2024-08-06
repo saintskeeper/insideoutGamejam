@@ -255,7 +255,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rd3cn"]
 size = Vector2(5.76378, 4.57782)
 
-[node name="CharacterBody2D" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D"]
 z_index = 5
 script = ExtResource("1_r62b8")
 
@@ -263,10 +263,9 @@ script = ExtResource("1_r62b8")
 position = Vector2(4.16329e-12, 4.16329e-12)
 scale = Vector2(0.988, 1)
 sprite_frames = SubResource("SpriteFrames_h6ed4")
-animation = &"walking"
+animation = &"hide"
 autoplay = "idle"
-frame = 7
-frame_progress = 1.0
+frame_progress = 0.226288
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(1, 4)

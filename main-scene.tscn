@@ -1,4 +1,4 @@
-[gd_scene load_steps=177 format=3 uid="uid://ddtkfxwce51iw"]
+[gd_scene load_steps=181 format=3 uid="uid://ddtkfxwce51iw"]
 
 [ext_resource type="PackedScene" uid="uid://bm0fl30mo4c6a" path="res://mimic-body2d.tscn" id="1_mllbc"]
 [ext_resource type="Texture2D" uid="uid://y87h5dmb0wyg" path="res://assets/super_rpg_dungeon/style_B/PNG/ceiling_northeast_dual.png" id="2_11ikt"]
@@ -88,6 +88,8 @@
 [ext_resource type="Texture2D" uid="uid://bvmaopcsy78cm" path="res://assets/super_rpg_dungeon/style_B/PNG/wall_horizontal_short_dual.png" id="86_tymmw"]
 [ext_resource type="Texture2D" uid="uid://cs58hajpox2si" path="res://assets/super_rpg_dungeon/style_B/PNG/window.png" id="87_bhw7e"]
 [ext_resource type="Texture2D" uid="uid://be72x6vp5hpua" path="res://assets/super_rpg_dungeon/style_B/PNG/ceiling_inner_southwest_single.png" id="88_b342s"]
+[ext_resource type="Texture2D" uid="uid://dixpatn74qpqf" path="res://assets/super_rpg_dungeon/super_rpg_dungeon_wallpaper_B.png" id="89_52st8"]
+[ext_resource type="PackedScene" uid="uid://btgvyd3nbb2l1" path="res://KnightNPC.tscn" id="90_wowvb"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jhkuo"]
 texture = ExtResource("2_11ikt")
@@ -735,18 +737,53 @@ sources/86 = SubResource("TileSetAtlasSource_8efx5")
 sources/87 = SubResource("TileSetAtlasSource_o2wi4")
 sources/88 = SubResource("TileSetAtlasSource_4ep8o")
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hywks"]
+texture = ExtResource("89_52st8")
+1:1/size_in_atlas = Vector2i(119, 59)
+1:1/0 = 0
+9:60/0 = 0
+9:61/0 = 0
+8:61/0 = 0
+8:62/0 = 0
+8:63/0 = 0
+8:64/0 = 0
+8:65/0 = 0
+8:66/0 = 0
+1:60/size_in_atlas = Vector2i(8, 1)
+1:60/0 = 0
+0:63/0 = 0
+1:62/size_in_atlas = Vector2i(7, 1)
+1:62/0 = 0
+20:64/0 = 0
+2:61/size_in_atlas = Vector2i(3, 1)
+2:61/0 = 0
+23:60/size_in_atlas = Vector2i(97, 7)
+23:60/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_dvvw6"]
+sources/0 = SubResource("TileSetAtlasSource_hywks")
+
 [node name="Main-scene" type="Node2D"]
 position = Vector2(2.08165e-12, 2.08165e-12)
 
-[node name="CharacterBody2D" parent="." instance=ExtResource("1_mllbc")]
+[node name="Player" parent="." instance=ExtResource("1_mllbc")]
 position = Vector2(-15, -32)
 
-[node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
+[node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2(5, 7)
 zoom = Vector2(4, 4)
 position_smoothing_enabled = true
 
 [node name="TileMap" type="TileMap" parent="."]
+visible = false
 tile_set = SubResource("TileSet_dcqj6")
 format = 2
 layer_0/tile_data = PackedInt32Array(65531, 48, 0, 65532, 46, 0, 65533, 46, 0, 65534, 48, 0, 65535, 48, 0, 0, 48, 0, 1, 48, 0, 2, 48, 0, 3, 48, 0, 4, 48, 0, 5, 48, 0, 6, 46, 0, 131067, 48, 0, 131068, 46, 0, 131069, 46, 0, 131070, 46, 0, 131071, 46, 0, 65536, 46, 0, 65539, 46, 0, 65540, 48, 0, 65538, 46, 0, 65537, 46, 0, 65541, 46, 0, 65542, 46, 0, -524300, 48, 0, -458764, 48, 0, -458763, 48, 0, -393227, 48, 0, -327691, 48, 0, -262155, 48, 0, -196618, 48, 0, -131082, 48, 0, -65546, 48, 0, -262154, 48, 0, -327690, 48, 0, -393226, 48, 0, -393225, 48, 0, -393224, 48, 0, -393223, 48, 0, -393222, 48, 0, -393221, 48, 0, -393220, 48, 0, -393219, 48, 0, -393218, 48, 0, -393217, 48, 0, -458752, 48, 0, -458751, 48, 0, -458750, 48, 0, -458749, 48, 0, -458748, 48, 0, -458747, 48, 0, -458746, 48, 0, -458745, 48, 0, -458744, 48, 0, -327689, 48, 0, -327688, 48, 0, -327687, 48, 0, -327686, 48, 0, -262150, 48, 0, -262149, 48, 0, -262148, 48, 0, -196611, 48, 0, -196610, 48, 0, -131073, 48, 0, -196608, 48, 0, -131072, 48, 0, -131071, 48, 0, -65535, 48, 0, -65534, 48, 0, -2, 48, 0, -65539, 48, 0, -65540, 48, 0, -131076, 48, 0, -196613, 48, 0, -262147, 48, 0, -262146, 48, 0, -262145, 48, 0, -327680, 48, 0, -327679, 48, 0, -327678, 48, 0, -327677, 48, 0, -327676, 48, 0, -327683, 48, 0, -327684, 48, 0, -327685, 48, 0, -327682, 48, 0, -327681, 48, 0, -393216, 48, 0, -393215, 48, 0, -393214, 48, 0, -393213, 48, 0, -393212, 48, 0, -393211, 48, 0, -393210, 48, 0, -393209, 48, 0, -393208, 48, 0, -393207, 48, 0, -327671, 48, 0, -327672, 48, 0, -262136, 48, 0, -196601, 48, 0, -131066, 48, 0, -65531, 48, 0, -65533, 48, 0, -131069, 48, 0, -196605, 48, 0, -262141, 48, 0, -262142, 48, 0, -196606, 48, 0, -131070, 48, 0, -524283, 48, 0, -327675, 48, 0, -262139, 48, 0, -196603, 48, 0, -262138, 48, 0, -327674, 48, 0, -262137, 48, 0, -196602, 48, 0, -65532, 48, 0, -131068, 48, 0, -131067, 48, 0, -196604, 48, 0, -262140, 48, 0, -262143, 48, 0, -196607, 48, 0, -262144, 48, 0, -65537, 48, 0, -1, 48, 0, -65536, 48, 0, -524288, 48, 0, -131074, 48, 0, -65538, 48, 0, -131075, 48, 0, -3, 48, 0, -4, 48, 0, -196612, 48, 0, -196614, 48, 0, -131078, 48, 0, -65542, 48, 0, -6, 48, 0, -7, 48, 0, 65529, 48, 0, -65543, 48, 0, -131079, 48, 0, -196615, 48, 0, -262151, 48, 0, -65541, 48, 0, -131077, 48, 0, -5, 48, 0, 131066, 48, 0, 196602, 48, 0, 131065, 48, 0, 65528, 48, 0, 131064, 48, 0, 131063, 48, 0, 131062, 48, 0, 65526, 48, 0, -10, 48, 0, -131081, 48, 0, -196617, 48, 0, -262153, 48, 0, -65545, 48, 0, -9, 48, 0, 65527, 48, 0, -8, 48, 0, -65544, 48, 0, -131080, 48, 0, -196616, 48, 0, -262152, 48, 0, -196609, 48, 0, -327673, 48, 0, -65530, 48, 0, -262135, 48, 0, -196599, 48, 0, -131063, 48, 0, -65527, 48, 0, 9, 48, 0, 65545, 48, 0, 65544, 48, 0, 65543, 48, 0, 7, 48, 0, -65529, 48, 0, -131065, 48, 0, -131064, 48, 0, -65528, 48, 0, 8, 48, 0, -196600, 48, 0, 65530, 48, 0, 196598, 48, 0, 196599, 48, 0, 196600, 48, 0, 196601, 48, 0, 196603, 48, 0, 196604, 48, 0, 196605, 48, 0, 196606, 48, 0, 196607, 48, 0, 131072, 48, 0, 131073, 48, 0, 131074, 48, 0, 131075, 48, 0, 131076, 48, 0, 131077, 48, 0, 131078, 48, 0, 131079, 48, 0, 131080, 48, 0, 131081, 48, 0, -196619, 48, 0, -131083, 48, 0, -65547, 48, 0, -11, 48, 0, 65525, 48, 0, 131061, 48, 0, 196597, 48, 0, 262133, 48, 0, 262134, 48, 0, 262135, 48, 0, 262136, 48, 0, 262137, 48, 0, 262138, 48, 0, 262139, 48, 0, 262140, 48, 0, 262141, 48, 0, 262142, 48, 0, 262143, 48, 0, 196608, 48, 0, 196609, 48, 0, 196610, 48, 0, 196611, 48, 0, 196612, 48, 0, 196613, 48, 0, 196614, 48, 0, 196615, 48, 0, 196616, 48, 0, 196617, 48, 0, 196618, 48, 0, 131082, 48, 0, 65546, 48, 0, 10, 48, 0, -65526, 48, 0, -131062, 48, 0, -196598, 48, 0, -262134, 48, 0, -327670, 48, 0, -393206, 48, 0, -458743, 48, 0, -458742, 48, 0)
+
+[node name="TileMap2" type="TileMap" parent="."]
+tile_set = SubResource("TileSet_dvvw6")
+format = 2
+layer_0/tile_data = PackedInt32Array(-327681, 65536, 1)
+
+[node name="KnightNpc" parent="." instance=ExtResource("90_wowvb")]
+position = Vector2(-288, -114)
