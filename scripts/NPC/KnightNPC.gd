@@ -26,7 +26,6 @@ func _ready() -> void:
 	
 	_start_new_wander()
 	
-	# Get the player node by its name in the scene tree
 	player = get_node("/root/Main-scene/Player")
 	if not player:
 		print("Warning: Player node not found!")
@@ -37,14 +36,25 @@ func _ready() -> void:
 		print("Warning: NavigationAgent2D not found!")
 	else:
 		print("NavigationAgent2D found")
+		# Configure the agent
+		navigation_agent.path_desired_distance = 4.0
+		navigation_agent.target_desired_distance = 4.0
 
 	print("Initial position: ", global_position)
 
 func _physics_process(delta: float) -> void:
-	print("_physics_process called. Delta: ", delta)
 	print("Current State: ", State.keys()[current_state])
 	print("Current position: ", global_position)
 	print("Current velocity: ", velocity)
+	
+	if _is_player_detected():
+		if current_state != State.CHASE:
+			print("Player detected! Switching to CHASE state.")
+			current_state = State.CHASE
+	elif current_state == State.CHASE:
+		print("Player lost. Switching back to WANDER state.")
+		current_state = State.WANDER
+		_start_new_wander()
 	
 	match current_state:
 		State.WANDER:
@@ -52,12 +62,7 @@ func _physics_process(delta: float) -> void:
 		State.CHASE:
 			_chase_behavior(delta)
 	
-	# Force some movement for debugging
-	velocity += Vector2(10, 0)  # Force movement to the right
-	
-	var collision = move_and_slide()
-	if collision:
-		print("Collision detected!")
+	move_and_slide()
 	
 	print("New position after move_and_slide: ", global_position)
 	print("New velocity after move_and_slide: ", velocity)
@@ -72,21 +77,15 @@ func _wander_behavior(delta: float) -> void:
 		if global_position.distance_to(wander_target) < 10:
 			print("Close to wander target. Starting new wander.")
 			_start_new_wander()
-	
-	if _is_player_detected():
-		print("Player detected. Switching to CHASE state.")
-		current_state = State.CHASE
 
 func _chase_behavior(delta: float) -> void:
 	print("Chase behavior")
-	if player and navigation_agent:
-		navigation_agent.target_position = player.global_position
-		var next_path_position: Vector2 = navigation_agent.get_next_path_position()
-		var direction: Vector2 = global_position.direction_to(next_path_position)
+	if player:
+		var direction: Vector2 = global_position.direction_to(player.global_position)
 		velocity = direction * chase_speed
 		print("Chase velocity set to: ", velocity)
 	else:
-		print("Warning: Player or NavigationAgent2D is null in chase behavior")
+		print("Warning: Player is null in chase behavior")
 		current_state = State.WANDER
 		_start_new_wander()
 
@@ -124,3 +123,8 @@ func _draw() -> void:
 	draw_line(Vector2.ZERO, velocity.normalized() * 50, Color.GREEN, 2.0)
 	if wander_target:
 		draw_circle(wander_target - global_position, 5, Color.BLUE)
+	if player:
+		draw_line(Vector2.ZERO, to_local(player.global_position), Color.RED, 2.0)
+	if current_state == State.CHASE and navigation_agent:
+		var next_pos = to_local(navigation_agent.get_next_path_position())
+		draw_circle(next_pos, 5, Color.YELLOW)
